@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+  <script src="javascripts/fermat.js"></script>
+  <title> Fermat Cycles</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+  <meta charset="utf-8">
+</head>
+
+<body>
+<div ng-app="Fermat" ng-controller="myCtrl">
+    <div id="header">
+	<h1> Fermat Cycles </h1>
+    </div>
+    <hr>
+    <div id="form">
+	<form ng-submit="createCircle()">
+	   Insert a number: <input type="number" min="3" max="101" ng-model="N"/>
+	   Insert a base: <input type="number" min="2" max="{{N}}" ng-model="a"/>
+	   <input type="submit" class="button" value="submit"/> 
+	</form>
+    </div>
+    <div id="canvasDiv">
+	<canvas id="canvas"> </canvas>
+    </div>
+    <div id="results" ng-if="submitted">
+	<h2> N = {{N}}    a = {{a}} </h2>
+    </div>
+</body>
+</html>
+
