@@ -7,21 +7,40 @@ function myCtrl($scope) {
 	var canvas = document.getElementById('canvas');
 	var context= canvas.getContext('2d');
 	var WIDTH = 800;
-	var HEIGHT = 600;
-	var R = 250;
-	var POINTWEIGHT = 3;
+	var HEIGHT = 620;
+	var R = 300;
+	var POINTWEIGHT = 2;
 
 	$scope.N;
 	$scope.a;
 	$scope.submitted = false;
+	$scope.message;
 	$scope.points = [];
 	$scope.cycle = [];
 	$scope.createCircle = function() {
 	   console.log("in Create Circle"); 
-
 	   $scope.submitted = true;
+
 	   $scope.getPoints();
-	   $scope.getCycle();
+	   if($scope.gcd($scope.N, $scope.a) == 1) {
+	   	$scope.getCycle();
+		if (($scope.N - 1) % ($scope.cycle.length - 1) == 0) {
+		   $scope.message = $scope.N + " is Probably Prime!\n";
+		   $scope.message += "Test other values of a to verify";
+		} else {
+		   $scope.message = $scope.N + " is Composite!";
+		}
+	   } else {
+		$scope.message = $scope.N +  " and " + $scope.a +  " are not relatively Prime\n";
+		$scope.message += $scope.N + " is Composite!";
+	   }
+	   console.log($scope.message);
+	}
+
+	$scope.gcd = function(a, b) {
+	   console.log(a, b);
+	   if (b == 0) return a;
+	   else return $scope.gcd(b, a % b);
 	}
 
 	$scope.getPoints = function() {

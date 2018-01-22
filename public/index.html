@@ -16,8 +16,8 @@
     <hr>
     <div id="form">
 	<form ng-submit="createCircle()">
-	   Insert a number: <input type="number" min="3" max="101" ng-model="N"/>
-	   Insert a base: <input type="number" min="2" max="{{N}}" ng-model="a"/>
+	   Insert a number: <input type="number" min="3" max="500" ng-model="N" required/>
+	   Insert a base: <input type="number" min="2" max="{{N - 1}}" ng-model="a" required/>
 	   <input type="submit" class="button" value="submit"/> 
 	</form>
     </div>
@@ -25,7 +25,7 @@
 	<canvas id="canvas"> </canvas>
     </div>
     <div id="results" ng-if="submitted">
-	<h2> N = {{N}}    a = {{a}} </h2>
+	<h2> {{message}} </h2>
     </div>
 </body>
 </html>
