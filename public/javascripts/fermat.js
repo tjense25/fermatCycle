@@ -6,7 +6,7 @@ function myCtrl($scope) {
 
 	var canvas = document.getElementById('canvas');
 	var context= canvas.getContext('2d');
-	var WIDTH = 800;
+	var WIDTH = 700;
 	var HEIGHT = 620;
 	var R = 300;
 	var POINTWEIGHT = 2;
@@ -14,27 +14,31 @@ function myCtrl($scope) {
 	$scope.N;
 	$scope.a;
 	$scope.submitted = false;
-	$scope.message;
+	$scope.messages = [];
 	$scope.points = [];
 	$scope.cycle = [];
 	$scope.createCircle = function() {
 	   console.log("in Create Circle"); 
+	   $scope.messages = [];
 	   $scope.submitted = true;
 
 	   $scope.getPoints();
 	   if($scope.gcd($scope.N, $scope.a) == 1) {
 	   	$scope.getCycle();
-		if (($scope.N - 1) % ($scope.cycle.length - 1) == 0) {
-		   $scope.message = $scope.N + " is Probably Prime!\n";
-		   $scope.message += "Test other values of a to verify";
+		var cycle_length = $scope.cycle.length - 1;
+		if (($scope.N - 1) % cycle_length == 0) {
+		   $scope.messages.push("Cylce length is " + cycle_length);
+		   $scope.messages.push(($scope.N - 1) + " is divisible by " + cycle_length);
+		   $scope.messages.push("Therefore, " + $scope.N + " is Probably Prime!");
 		} else {
-		   $scope.message = $scope.N + " is Composite!";
+		   $scope.messages.push("Cylce length is " + cycle_length);
+		   $scope.messages.push(($scope.N - 1) + " is not divisible by " + cycle_length);
+		   $scope.messages.push("Therefore, " + $scope.N + " is Composite!");
 		}
 	   } else {
-		$scope.message = $scope.N +  " and " + $scope.a +  " are not relatively Prime\n";
-		$scope.message += $scope.N + " is Composite!";
+		$scope.messages.push($scope.N + " and " + $scope.a + " are not relatively Prime");
+		$scope.messages.push("Therefore, " + $scope.N + " is Composite!");
 	   }
-	   console.log($scope.message);
 	}
 
 	$scope.gcd = function(a, b) {

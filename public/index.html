@@ -12,12 +12,13 @@
 <div ng-app="Fermat" ng-controller="myCtrl">
     <div id="header">
 	<h1> Fermat Cycles </h1>
+	<h2> A visualization of Fermat's Little Theorem </h2>
     </div>
     <hr>
     <div id="form">
 	<form ng-submit="createCircle()">
-	   Insert a number: <input type="number" min="3" max="500" ng-model="N" required/>
-	   Insert a base: <input type="number" min="2" max="{{N - 1}}" ng-model="a" required/>
+	   N: <input type="number" min="3" max="1009" ng-model="N" required/>
+	   a: <input type="number" min="2" max="{{N - 1}}" ng-model="a" required/>
 	   <input type="submit" class="button" value="submit"/> 
 	</form>
     </div>
@@ -25,7 +26,7 @@
 	<canvas id="canvas"> </canvas>
     </div>
     <div id="results" ng-if="submitted">
-	<h2> {{message}} </h2>
+	<h2 ng-repeat="message in messages"> {{message}} </h2>
     </div>
 </body>
 </html>
