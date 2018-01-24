@@ -45,3 +45,7 @@ nohup: ignoring input
 [0mGET /favicon.ico [33m404 [0m10.307 ms - 1145[0m
 [0mGET / [32m200 [0m0.549 ms - 957[0m
 [0mGET /favicon.ico [33m404 [0m10.722 ms - 1145[0m
+[0mGET / [32m200 [0m0.566 ms - 957[0m
+[0mGET / [36m304 [0m0.350 ms - -[0m
+[0mGET /javascripts/fermat.js [36m304 [0m0.385 ms - -[0m
+[0mGET /stylesheets/main.css [36m304 [0m0.360 ms - -[0m

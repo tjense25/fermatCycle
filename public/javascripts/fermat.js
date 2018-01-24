@@ -2,8 +2,6 @@ angular.module('Fermat', [])
 	.controller('myCtrl', ['$scope', myCtrl]);
 
 function myCtrl($scope) {
-	console.log("fermat.app started!");
-
 	var canvas = document.getElementById('canvas');
 	var context= canvas.getContext('2d');
 	var WIDTH = 700;
@@ -18,13 +16,13 @@ function myCtrl($scope) {
 	$scope.points = [];
 	$scope.cycle = [];
 	$scope.createCircle = function() {
-	   console.log("in Create Circle"); 
 	   $scope.messages = [];
 	   $scope.submitted = true;
 
 	   $scope.getPoints();
+	   $scope.getCycle();
+
 	   if($scope.gcd($scope.N, $scope.a) == 1) {
-	   	$scope.getCycle();
 		var cycle_length = $scope.cycle.length - 1;
 		if (($scope.N - 1) % cycle_length == 0) {
 		   $scope.messages.push("Cylce length is " + cycle_length);
@@ -42,7 +40,6 @@ function myCtrl($scope) {
 	}
 
 	$scope.gcd = function(a, b) {
-	   console.log(a, b);
 	   if (b == 0) return a;
 	   else return $scope.gcd(b, a % b);
 	}
@@ -64,10 +61,13 @@ function myCtrl($scope) {
 	   $scope.cycle = [];
 	   $scope.cycle.push(0);
 	   var b = 1;
-	   do {
+	   for (var i = 0; i < $scope.N; i++) {
 		b = ($scope.a * b) % $scope.N;
+		if (b == 0) break;
 		$scope.cycle.push(b - 1);
-	   } while (b != 1);	
+		if (b == 1) break;
+	   } 
+	   console.log($scope.cycle);
 	   $scope.drawLines();	   
 	}
 
@@ -79,7 +79,6 @@ function myCtrl($scope) {
 	}
 
 	$scope.drawPoints = function() {
-	   console.log("in drawPoints!");
 	   context.clearRect(0, 0, WIDTH, HEIGHT);
 	   $scope.drawCircle();
 
@@ -87,7 +86,7 @@ function myCtrl($scope) {
 		context.beginPath();
 		var point = $scope.points[i];
 		var x = WIDTH/2 + point.x;
-		var y = HEIGHT/2 + point.y;
+		var y = HEIGHT/2 - point.y;
 		context.arc(x, y, POINTWEIGHT, 0, 2*Math.PI);
 		context.fillStyle = "white";
 		context.fill();
@@ -95,13 +94,12 @@ function myCtrl($scope) {
 	}
 
 	$scope.drawLines = function() {
-	   console.log("in drawLines!");
 	   for (var i = 0; i < $scope.cycle.length - 1; i++) {
 		var point1 = $scope.points[$scope.cycle[i]];
 		var point2 = $scope.points[$scope.cycle[i + 1]];
 		context.beginPath();
-		context.moveTo(WIDTH/2 + point1.x, HEIGHT/2 + point1.y);
-		context.lineTo(WIDTH/2 + point2.x, HEIGHT/2 + point2.y);
+		context.moveTo(WIDTH/2 + point1.x, HEIGHT/2 - point1.y);
+		context.lineTo(WIDTH/2 + point2.x, HEIGHT/2 - point2.y);
 		context.strokeStyle = "#FF69B4";
 		context.stroke();
 	   }
